@@ -25,6 +25,14 @@
                             </tr>
                             <tr>
                                 <th>
+                                    {{ trans('cruds.ticket.fields.project_description') }}
+                                </th>
+                                <td>
+                                    {!! $ticket->project_description !!}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
                                     {{ trans('cruds.ticket.fields.content') }}
                                 </th>
                                 <td>

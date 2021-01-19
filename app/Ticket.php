@@ -31,6 +31,7 @@ class Ticket extends Model implements HasMedia
     protected $fillable = [
         'title',
         'content',
+        'project_description',
         'status_id',
         'created_at',
         'updated_at',
@@ -117,7 +118,7 @@ class Ticket extends Model implements HasMedia
                     })
                     ->orWhereHas('tickets', function ($q) {
                         return $q->whereId($this->id);
-                    }); 
+                    });
                 });
             })
             ->when(!$comment->user_id && !$this->assigned_to_user_id, function ($q) {

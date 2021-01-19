@@ -10,17 +10,17 @@
                 </div>
             @endif
             <div class="card">
-                <div class="card-header">Add ticket</div>
+                <div class="card-header">Raise a ticket</div>
 
-                <div class="card-body">
+                <div class="card-body ">
                     <form method="POST" action="{{ route('tickets.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="author_name" class="col-md-4 col-form-label text-md-right">Your Name</label>
+                            <label for="author_name" class="col-md-2 col-form-label text-md-right"></label>
 
-                            <div class="col-md-6">
-                                <input id="author_name" type="text" class="form-control @error('author_name') is-invalid @enderror" name="author_name" value="{{ old('author_name') }}" required autocomplete="name" autofocus>
+                            <div class="col-md-8">
+                                <input id="author_name" placeholder="Your Name" type="text" class="form-control @error('author_name') is-invalid @enderror" name="author_name" value="{{ old('author_name') }}" required autocomplete="name" autofocus>
 
                                 @error('author_name')
                                     <span class="invalid-feedback" role="alert">
@@ -31,10 +31,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="author_email" class="col-md-4 col-form-label text-md-right">Your Email</label>
+                            <label for="author_email" class="col-md-2 col-form-label text-md-right"></label>
 
-                            <div class="col-md-6">
-                                <input id="author_email" type="email" class="form-control @error('author_email') is-invalid @enderror" name="author_email" value="{{ old('author_email') }}" required autocomplete="email">
+                            <div class="col-md-8">
+                                <input id="author_email" type="email" placeholder="Your Email" class="form-control @error('author_email') is-invalid @enderror" name="author_email" value="{{ old('author_email') }}" required autocomplete="email">
 
                                 @error('author_email')
                                     <span class="invalid-feedback" role="alert">
@@ -45,10 +45,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="title" class="col-md-4 col-form-label text-md-right">@lang('cruds.ticket.fields.title')</label>
+                            <label for="title" class="col-md-2 col-form-label text-md-right"></label>
 
-                            <div class="col-md-6">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title">
+                            <div class="col-md-8">
+                                <input id="title" type="text" placeholder="@lang('cruds.ticket.fields.title')" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title">
 
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -59,10 +59,23 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="content" class="col-md-4 col-form-label text-md-right">@lang('cruds.ticket.fields.content')</label>
+                            <label for="project_description" class="col-md-2 col-form-label text-md-right"></label>
 
-                            <div class="col-md-6">
-                                <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="3" required>{{ old('content') }}</textarea>
+                            <div class="col-md-8">
+                                <textarea placeholder="@lang('cruds.ticket.fields.project_description')" class="form-control @error('project_description') is-invalid @enderror" id="project_description" name="project_description" rows="3" required>{{ old('project_description') }}</textarea>
+                                @error('project_description')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="content" class="col-md-2 col-form-label text-md-right"></label>
+
+                            <div class="col-md-8">
+                                <textarea placeholder="@lang('cruds.ticket.fields.content')" class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="3" required>{{ old('content') }}</textarea>
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -72,11 +85,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="attachments" class="col-md-4 col-form-label text-md-right">{{ trans('cruds.ticket.fields.attachments') }}</label>
+                            <label for="attachments" class="col-md-2 col-form-label text-md-right"></label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="needsclick dropzone @error('attachments') is-invalid @enderror" id="attachments-dropzone">
-                
+
                                 </div>
                             </div>
                             @error('attachments')
@@ -87,7 +100,7 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col-md-8 offset-md-2">
                                 <button type="submit" class="btn btn-primary">
                                     @lang('global.submit')
                                 </button>
