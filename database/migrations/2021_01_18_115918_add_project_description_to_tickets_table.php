@@ -14,7 +14,7 @@ class AddProjectDescriptionToTicketsTable extends Migration
     public function up()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->string('editorial_requests ')->nullable();
+            $table->string('editorial_requests')->nullable();
         });
     }
 
