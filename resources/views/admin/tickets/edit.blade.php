@@ -10,6 +10,18 @@
         <form action="{{ route("admin.tickets.update", [$ticket->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+            <div class="form-group {{ $errors->has('review_deadline') ? 'has-error' : '' }}">
+                <label for="review_deadline">{{ trans('cruds.ticket.fields.review_deadline') }}*</label>
+                <input type="text" id="review_deadline" name="review_deadline" class="form-control" value="{{ old('review_deadline', isset($ticket) ? $ticket->review_deadline : '') }}" required>
+                @if($errors->has('review_deadline'))
+                    <em class="invalid-feedback">
+                        {{ $errors->first('review_deadline') }}
+                    </em>
+                @endif
+                <p class="helper-block">
+                    {{ trans('cruds.ticket.fields.review_deadline_helper') }}
+                </p>
+            </div>
             <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
                 <label for="title">{{ trans('cruds.ticket.fields.title') }}*</label>
                 <input type="text" id="title" name="title" class="form-control" value="{{ old('title', isset($ticket) ? $ticket->title : '') }}" required>
@@ -20,6 +32,18 @@
                 @endif
                 <p class="helper-block">
                     {{ trans('cruds.ticket.fields.title_helper') }}
+                </p>
+            </div>
+            <div class="form-group {{ $errors->has('editorial_requests') ? 'has-error' : '' }}">
+                <label for="editorial_requests">{{ trans('cruds.ticket.fields.editorial_requests') }}</label>
+                <textarea id="editorial_requests" name="editorial_requests" class="form-control ">{{ old('editorial_requests', isset($ticket) ? $ticket->editorial_requests : '') }}</textarea>
+                @if($errors->has('editorial_requests'))
+                    <em class="invalid-feedback">
+                        {{ $errors->first('editorial_requests') }}
+                    </em>
+                @endif
+                <p class="helper-block">
+                    {{ trans('cruds.ticket.fields.editorial_requests_helper') }}
                 </p>
             </div>
             <div class="form-group {{ $errors->has('content') ? 'has-error' : '' }}">

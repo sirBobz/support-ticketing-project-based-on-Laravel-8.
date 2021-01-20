@@ -31,7 +31,8 @@ class Ticket extends Model implements HasMedia
     protected $fillable = [
         'title',
         'content',
-        'project_description',
+        'editorial_requests',
+        'review_deadline',
         'status_id',
         'created_at',
         'updated_at',

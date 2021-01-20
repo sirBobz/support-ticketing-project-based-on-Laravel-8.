@@ -41,6 +41,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.ticket.fields.editorial_requests') }}
+                        </th>
+                        <td>
+                            {!! $ticket->editorial_requests !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.ticket.fields.content') }}
                         </th>
                         <td>

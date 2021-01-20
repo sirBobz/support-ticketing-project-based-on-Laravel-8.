@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddProjectDescriptionToTicketsTable extends Migration
+class AddReviewDeadlineToTicketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddProjectDescriptionToTicketsTable extends Migration
     public function up()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->string('editorial_requests ')->nullable();
+            $table->string('review_deadline')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddProjectDescriptionToTicketsTable extends Migration
     public function down()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->dropColumn('editorial_requests');
+            $table->dropColumn('review_deadline');
         });
     }
 }

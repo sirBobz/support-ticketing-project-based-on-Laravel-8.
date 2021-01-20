@@ -15,7 +15,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
 </head>
@@ -76,8 +76,19 @@
             @yield('content')
         </main>
     </div>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+    <script type="text/javascript">
+        $( "#review_deadline" ).datepicker({
+            dateFormat: 'dd-mm-yy'
+        });
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     @yield('scripts')
+
 </body>
 </html>

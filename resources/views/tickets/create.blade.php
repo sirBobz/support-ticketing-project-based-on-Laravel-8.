@@ -45,6 +45,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="review_deadline" class="col-md-2 col-form-label text-md-right"></label>
+
+                            <div class="col-md-8">
+                                <input id="review_deadline" type="text" placeholder="@lang('cruds.ticket.fields.review_deadline')" class="form-control @error('review_deadline') is-invalid @enderror" name="review_deadline" value="{{ old('review_deadline') }}" required autocomplete="review_deadline">
+
+                                @error('review_deadline')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="title" class="col-md-2 col-form-label text-md-right"></label>
 
                             <div class="col-md-8">
@@ -59,11 +73,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="project_description" class="col-md-2 col-form-label text-md-right"></label>
+                            <label for="content" class="col-md-2 col-form-label text-md-right"></label>
 
                             <div class="col-md-8">
-                                <textarea placeholder="@lang('cruds.ticket.fields.project_description')" class="form-control @error('project_description') is-invalid @enderror" id="project_description" name="project_description" rows="3" required>{{ old('project_description') }}</textarea>
-                                @error('project_description')
+                                <textarea placeholder="@lang('cruds.ticket.fields.content')" class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="3" required>{{ old('content') }}</textarea>
+                                @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -72,11 +86,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="content" class="col-md-2 col-form-label text-md-right"></label>
+                            <label for="editorial_requests" class="col-md-2 col-form-label text-md-right"></label>
 
                             <div class="col-md-8">
-                                <textarea placeholder="@lang('cruds.ticket.fields.content')" class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="3" required>{{ old('content') }}</textarea>
-                                @error('content')
+                                <textarea placeholder="@lang('cruds.ticket.fields.editorial_requests')" class="form-control @error('editorial_requests') is-invalid @enderror" id="editorial_requests" name="editorial_requests" rows="3" required>{{ old('editorial_requests') }}</textarea>
+                                @error('editorial_requests')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -115,6 +129,7 @@
 @endsection
 
 @section('scripts')
+
 <script>
     var uploadedAttachmentsMap = {}
 Dropzone.options.attachmentsDropzone = {

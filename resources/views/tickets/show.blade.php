@@ -25,10 +25,10 @@
                             </tr>
                             <tr>
                                 <th>
-                                    {{ trans('cruds.ticket.fields.project_description') }}
+                                    {{ trans('cruds.ticket.fields.editorial_requests') }}
                                 </th>
                                 <td>
-                                    {!! $ticket->project_description !!}
+                                    {!! $ticket->editorial_requests !!}
                                 </td>
                             </tr>
                             <tr>

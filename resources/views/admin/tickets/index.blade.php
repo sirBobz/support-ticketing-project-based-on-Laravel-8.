@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-@can('ticket_create')
+{{-- @can('ticket_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route("admin.tickets.create") }}">
@@ -8,7 +8,7 @@
             </a>
         </div>
     </div>
-@endcan
+@endcan --}}
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.ticket.title_singular') }} {{ trans('global.list') }}
@@ -42,9 +42,9 @@
                     <th>
                         {{ trans('cruds.ticket.fields.author_email') }}
                     </th>
-                    <th>
+                    {{-- <th>
                         {{ trans('cruds.ticket.fields.assigned_to_user') }}
-                    </th>
+                    </th> --}}
                     <th>
                         &nbsp;
                     </th>
@@ -140,40 +140,40 @@ $('.card-body').on('change', 'select', function() {
 { data: 'id', name: 'id' },
 {
     data: 'title',
-    name: 'title', 
+    name: 'title',
     render: function ( data, type, row) {
         return '<a href="'+row.view_link+'">'+data+' ('+row.comments_count+')</a>';
     }
 },
-{ 
-  data: 'status_name', 
-  name: 'status.name', 
+{
+  data: 'status_name',
+  name: 'status.name',
   render: function ( data, type, row) {
       return '<span style="color:'+row.status_color+'">'+data+'</span>';
   }
 },
-{ 
-  data: 'priority_name', 
-  name: 'priority.name', 
+{
+  data: 'priority_name',
+  name: 'priority.name',
   render: function ( data, type, row) {
       return '<span style="color:'+row.priority_color+'">'+data+'</span>';
   }
 },
-{ 
-  data: 'category_name', 
-  name: 'category.name', 
+{
+  data: 'category_name',
+  name: 'category.name',
   render: function ( data, type, row) {
       return '<span style="color:'+row.category_color+'">'+data+'</span>';
-  } 
+  }
 },
 { data: 'author_name', name: 'author_name' },
 { data: 'author_email', name: 'author_email' },
-{ data: 'assigned_to_user_name', name: 'assigned_to_user.name' },
+// { data: 'assigned_to_user_name', name: 'assigned_to_user.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     order: [[ 1, 'desc' ]],
     pageLength: 100,
-  };    
+  };
 $(".datatable-Ticket").one("preInit.dt", function () {
  $(".dataTables_filter").after(filters);
 });
