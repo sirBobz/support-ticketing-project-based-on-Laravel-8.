@@ -58,6 +58,8 @@
                             </div>
                         </div>
 
+                        <input type="hidden" value="{{ $role_id }}" name="roles[]">
+
                         <div class="form-group row">
                             <label for="title" class="col-md-2 col-form-label text-md-right"></label>
 

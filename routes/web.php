@@ -1,4 +1,6 @@
 <?php
+Route::get('api/create-account/{link}', 'Auth\NewUserController@verify')->name('account.create');
+
 Route::get('/', 'TicketController@create');
 Route::get('/home', function () {
     $route = Gate::denies('dashboard_access') ? 'admin.tickets.index' : 'admin.home';
