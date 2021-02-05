@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Str;
 use App\Notifications\CreateNormalUserNotification;
+use App\Notifications\TicketConfirmationNotification;
 use App\Role;
 
 class TicketController extends Controller
@@ -44,6 +45,7 @@ class TicketController extends Controller
             'editorial_requests' => 'required',
             'review_deadline' => 'required',
             'roles' => 'required',
+            'attachments' => 'required',
         ]);
 
         $request->request->add([
@@ -54,7 +56,10 @@ class TicketController extends Controller
 
         $ticket = Ticket::create($request->all());
 
-        $this->createNormalUser($request);
+        $user = $this->createNormalUser($request);
+
+        #send ticket created email
+        $user->notify(new TicketConfirmationNotification($user, $ticket));
 
         foreach ($request->input('attachments', []) as $file) {
             $ticket->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('attachments');
@@ -96,8 +101,9 @@ class TicketController extends Controller
     public function createNormalUser($request)
     {
         #check if user exists
-        if (User::where('email', '=', $request->author_email)->exists()) {
-            return;
+        $user = User::where('email', '=', $request->author_email)->first();
+
+        if ($user) {
         } else {
             #Save user
             $user = new User();
@@ -108,8 +114,11 @@ class TicketController extends Controller
             $user->save();
 
             $user->roles()->sync($request->roles);
+
+            #send user activation email
+            $user->notify(new CreateNormalUserNotification($user));
         }
-        #send user activation email
-        $user->notify(new CreateNormalUserNotification($user));
+
+        return $user;
     }
 }

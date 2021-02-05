@@ -13,6 +13,7 @@ use App\Status;
 use App\Ticket;
 use App\User;
 use Gate;
+use App\Role, Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -24,9 +25,20 @@ class TicketsController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])
-                ->filterTickets($request)
-                ->select(sprintf('%s.*', (new Ticket)->table));
+            $normal_user_role_id = Role::where('title', 'User role')->value('id');
+
+            $user_role_id = Auth::user()->roles->pluck('id')->first();
+
+            if ($user_role_id == $normal_user_role_id) {
+                $query = Ticket::where('author_email', Auth::user()->email)->with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])
+                    ->filterTickets($request)
+                    ->select(sprintf('%s.*', (new Ticket)->table));
+            } else {
+                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])
+                    ->filterTickets($request)
+                    ->select(sprintf('%s.*', (new Ticket)->table));
+            }
+
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -114,9 +126,9 @@ class TicketsController extends Controller
 
         $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $assigned_to_users = User::whereHas('roles', function($query) {
-                $query->whereId(2);
-            })
+        $assigned_to_users = User::whereHas('roles', function ($query) {
+            $query->whereId(2);
+        })
             ->pluck('name', 'id')
             ->prepend(trans('global.pleaseSelect'), '');
 
@@ -144,9 +156,9 @@ class TicketsController extends Controller
 
         $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $assigned_to_users = User::whereHas('roles', function($query) {
-                $query->whereId(2);
-            })
+        $assigned_to_users = User::whereHas('roles', function ($query) {
+            $query->whereId(2);
+        })
             ->pluck('name', 'id')
             ->prepend(trans('global.pleaseSelect'), '');
 
