@@ -67,7 +67,7 @@ class TicketController extends Controller
             $ticket->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('attachments');
         }
 
-        return redirect()->back()->withStatus('Your ticket has been submitted, we will be in touch. You can view ticket status <a href="' . route('tickets.show', $ticket->id) . '">here</a>');
+        return redirect()->back()->withStatus('Your ticket has been submitted, we will be in touch on mail. You can view ticket status <a href="' . route('admin.tickets.show', $ticket->id) . '">here</a>');
     }
 
     /**
