@@ -42,8 +42,17 @@ class Ticket extends Model implements HasMedia
         'author_name',
         'author_email',
         'assigned_to_user_id',
+        'version_control',
     ];
 
+    public function setVersionControlAttribute($value)
+    {
+        $this->attributes['version_control'] = json_encode($value);
+    }
+    // public function getVersionControlAttribute($value)
+    // {
+    //     return $this->attributes['version_control'] = json_decode($value);
+    // }
     public static function boot()
     {
         parent::boot();

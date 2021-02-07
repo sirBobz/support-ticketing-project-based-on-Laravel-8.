@@ -17,6 +17,7 @@ use App\Role, Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
+use App\Notifications\TicketUpdateNotification;
 
 class TicketsController extends Controller
 {
@@ -169,7 +170,19 @@ class TicketsController extends Controller
 
     public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
+        $status_id_before = $ticket->status_id;
+
         $ticket->update($request->all());
+
+        // status_id has changed
+        if ($status_id_before != $ticket->status_id) {
+
+            $user = User::where('email', '=', $ticket->author_email)->first();
+
+            #send ticket change email
+            $user->notify(new TicketUpdateNotification($user, $ticket));
+        }
+
 
         if (count($ticket->attachments) > 0) {
             foreach ($ticket->attachments as $media) {
@@ -187,7 +200,7 @@ class TicketsController extends Controller
             }
         }
 
-        return redirect()->route('admin.tickets.index');
+        return redirect()->route('admin.tickets.index')->withStatus('Updated successfully');
     }
 
     public function show(Ticket $ticket)

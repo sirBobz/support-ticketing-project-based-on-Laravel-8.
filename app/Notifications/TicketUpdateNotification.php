@@ -8,10 +8,9 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
-class TicketConfirmationNotification extends Notification implements ShouldQueue
+class TicketUpdateNotification extends Notification implements ShouldQueue
 {
     use Queueable;
-
 
     public $user;
     public $ticket;
@@ -46,12 +45,11 @@ class TicketConfirmationNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('You created a new Ticket')
+            ->subject('You Ticket status has changed to ' . $this->ticket->status->name )
             ->greeting('Hi ' . $this->ticket->author_name . ',')
-            ->line('You created a new Ticket')
+            ->line('You Ticket status has been updated to ' . $this->ticket->status->name)
             ->line("Your name: " . $this->ticket->author_name)
             ->line("Ticket title: " . $this->ticket->title)
-            ->line("Internal review deadline: " . $this->ticket->review_deadline)
             ->line("Brief description: " . Str::limit($this->ticket->content, 200))
             ->action('View full ticket', route('admin.tickets.show', $this->ticket->id))
             ->line('Thank you')

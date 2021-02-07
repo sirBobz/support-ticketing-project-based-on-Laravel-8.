@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
-class CommentEmailNotification extends Notification
+class CommentEmailNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 

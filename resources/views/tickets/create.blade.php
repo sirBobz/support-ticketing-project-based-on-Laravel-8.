@@ -1,8 +1,49 @@
 @extends('layouts.app')
+@section('styles')
+<style>
+    input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid gray;
+    border-radius: 4px;
+    }
+    input[type=email] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    border-radius: 4px;
+    }
+
+    ::-webkit-input-placeholder {
+      color: peachpuff;
+      font-size: 12px;
+    }
+
+    ::-moz-placeholder {
+      color: peachpuff;
+      font-size: 12px;
+    }
+
+    :-ms-input-placeholder {
+      color: peachpuff;
+      font-size: 12px;
+    }
+
+    ::placeholder {
+      color: peachpuff;
+      font-size: 12px;
+    }
+  </style>
+@endsection
 @section('content')
+
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-10">
+    <div class="col-md-12">
       @if(session('status'))
       <div class="alert alert-success" role="alert">
         {!! session('status') !!}
@@ -32,7 +73,7 @@
                 @enderror
               </div>
               <div class="form-group col-md-6">
-                <input id="author_email" type="email" placeholder="Your Email" class="form-control @error('author_email') is-invalid @enderror" name="author_email" value="{{ old('author_email') }}" required autocomplete="email">
+                <input id="author_email" type="email" placeholder="Your Valid Email" title="This email will be used to set an account." class="form-control @error('author_email') is-invalid @enderror" name="author_email" value="{{ old('author_email') }}" required autocomplete="email">
                 @error('author_email')
                 <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -60,7 +101,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
-                    <textarea placeholder="@lang('cruds.ticket.fields.content')" class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="3" required>{{ old('content') }}</textarea>
+                    <textarea style="border: 1px solid grey;" placeholder="@lang('cruds.ticket.fields.content')" class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="3" required>{{ old('content') }}</textarea>
                     @error('content')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -68,7 +109,7 @@
                     @enderror
                 </div>
                 <div class="form-group col-md-6">
-                    <textarea placeholder="@lang('cruds.ticket.fields.editorial_requests')" class="form-control @error('editorial_requests') is-invalid @enderror" id="editorial_requests" name="editorial_requests" rows="3" required>{{ old('editorial_requests') }}</textarea>
+                    <textarea style="border: 1px solid grey;" placeholder="@lang('cruds.ticket.fields.editorial_requests')" class="form-control @error('editorial_requests') is-invalid @enderror" id="editorial_requests" name="editorial_requests" rows="3" required>{{ old('editorial_requests') }}</textarea>
                     @error('editorial_requests')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -79,14 +120,6 @@
             <input type="hidden" value="{{ $role_id }}" name="roles[]">
 
             <div class="row">
-
-                <div class="form-group col-md-6">
-                    <br> <br>
-                    <input type="checkbox" value="This document has completed all internal review (Country office and HO level)" name="version_control">
-                    <label style="font-size:12px;"> Document has completed all internal review (Country office and HO level) </label><br>
-                    <input type="checkbox" value="This document has completed all CDC and other external review" name="version_control">
-                    <label style="font-size:12px;">Document has completed all CDC and other external review</label>
-                </div>
                 <div class="form-group col-md-6">
                     <div class="needsclick dropzone @error('attachments') is-invalid @enderror" id="attachments-dropzone">
                     @error('attachments')
@@ -96,12 +129,20 @@
                     @enderror
                     </div>
               </div>
+              <div class="form-group col-md-6">
+                <br> <br>
+                <input type="checkbox" value="The document has completed all internal review (Country office and HO level)" name="version_control[]">
+                <label style="font-size:12px;"> The document has completed all internal review (Country office and HO level) </label><br>
+                <input type="checkbox" value="The document has completed all CDC and other external review" name="version_control[]">
+                <label style="font-size:12px;">The document has completed all CDC and other external review</label>
+            </div>
+            </div>
 
             <div class="form-group row">
               <div class="col-md-12">
                 <br>
                 <button type="submit" class="btn btn-primary float-right">
-                @lang('global.submit')
+                @lang('global.submit') ticket
                 </button>
               </div>
             </div>

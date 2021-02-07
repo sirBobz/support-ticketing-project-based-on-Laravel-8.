@@ -46,12 +46,14 @@ class TicketController extends Controller
             'review_deadline' => 'required',
             'roles' => 'required',
             'attachments' => 'required',
+            'version_control' => 'required',
         ]);
 
         $request->request->add([
             'category_id'   => 1,
             'status_id'     => 1,
-            'priority_id'   => 1
+            'priority_id'   => 1,
+            'version_control' => $request->version_control,
         ]);
 
         $ticket = Ticket::create($request->all());
