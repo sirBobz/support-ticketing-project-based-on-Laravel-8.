@@ -130,7 +130,7 @@ return [
             'content'                 => 'Project Description.',
             'content_helper'          => '',
             'editorial_requests'     => 'Editorial Requests (heavy editing, light proofing, etc).',
-            'review_deadline'     => 'Review Deadline',
+            'review_deadline'     => 'Internal Review Deadline',
             'review_deadline_helper'     => '',
             'editorial_requests_helper'     => '',
             'status'                  => 'Status',

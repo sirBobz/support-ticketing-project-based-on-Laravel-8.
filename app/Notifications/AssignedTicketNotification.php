@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AssignedTicketNotification extends Notification
+class AssignedTicketNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -44,6 +44,7 @@ class AssignedTicketNotification extends Notification
                     ->subject('You have been assigned a new ticket')
                     ->greeting('Hi,')
                     ->line('You have been assigned a new ticket: '.$this->ticket->title)
+                    ->line("Internal review deadline: " . $this->ticket->review_deadline)
                     ->action('View ticket', route('admin.tickets.show', $this->ticket->id))
                     ->line('Thank you')
                     ->line(config('app.name') . ' Team')

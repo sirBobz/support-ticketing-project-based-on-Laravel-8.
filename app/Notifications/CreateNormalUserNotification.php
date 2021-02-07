@@ -6,20 +6,20 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Str;
 
-class CommentEmailNotification extends Notification implements ShouldQueue
+class CreateNormalUserNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $user;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($comment)
+    public function __construct($user)
     {
-        $this->comment = $comment;
+        $this->user = $user;
     }
 
     /**
@@ -41,15 +41,26 @@ class CommentEmailNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $click_link = url('/api/create-account/' . $this->user->remember_token);
+
         return (new MailMessage)
-                    ->subject('New comment on ticket '.$this->comment->ticket->title)
-                    ->greeting('Hi,')
-                    ->line('New comment on ticket '.$this->comment->ticket->title.':')
-                    ->line('')
-                    ->line(Str::limit($this->comment->comment_text, 500))
-                    ->action('View full ticket', route(optional($notifiable)->id ? 'admin.tickets.show' : 'tickets.show', $this->comment->ticket->id))
-                    ->line('Thank you')
-                    ->line(config('app.name') . ' Team')
-                    ->salutation(' ');
+            ->subject('Welcome')
+            ->greeting('Hi ' . $this->user->name)
+            ->line('Please click the button below to set up your account.')
+            ->action('Set up account link', $click_link)
+            ->line('Thank you for using our application!');
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            //
+        ];
     }
 }

@@ -1,4 +1,6 @@
 <?php
+Route::get('api/create-account/{link}', 'Auth\NewUserController@verify')->name('account.create');
+
 Route::get('/', 'TicketController@create');
 Route::get('/home', function () {
     $route = Gate::denies('dashboard_access') ? 'admin.tickets.index' : 'admin.home';
@@ -13,7 +15,7 @@ Auth::routes(['register' => false]);
 
 Route::post('tickets/media', 'TicketController@storeMedia')->name('tickets.storeMedia');
 Route::post('tickets/comment/{ticket}', 'TicketController@storeComment')->name('tickets.storeComment');
-Route::resource('tickets', 'TicketController')->only(['show', 'create', 'store']);
+Route::resource('tickets', 'TicketController')->only([ 'create', 'store']);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');

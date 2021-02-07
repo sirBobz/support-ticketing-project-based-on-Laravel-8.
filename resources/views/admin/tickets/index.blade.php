@@ -22,7 +22,7 @@
 
                     </th>
                     <th>
-                        {{ trans('cruds.ticket.fields.id') }}
+                        Internal Review Deadline
                     </th>
                     <th>
                         {{ trans('cruds.ticket.fields.title') }}
@@ -137,7 +137,7 @@ $('.card-body').on('change', 'select', function() {
     },
     columns: [
       { data: 'placeholder', name: 'placeholder' },
-{ data: 'id', name: 'id' },
+{ data: 'review_deadline', name: 'review_deadline' },
 {
     data: 'title',
     name: 'title',

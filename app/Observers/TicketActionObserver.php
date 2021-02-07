@@ -15,7 +15,7 @@ class TicketActionObserver
         $users = \App\User::whereHas('roles', function ($q) {
             return $q->where('title', 'Admin');
         })->get();
-        Notification::send($users, new DataChangeEmailNotification($data));
+        Notification::send($users, new DataChangeEmailNotification($data, $model));
     }
 
     public function updated(Ticket $model)

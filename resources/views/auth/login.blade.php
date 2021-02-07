@@ -16,11 +16,11 @@
                     @csrf
 
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
+                        {{-- <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fa fa-user"></i>
                             </span>
-                        </div>
+                        </div> --}}
 
                         <input id="email" name="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" required autocomplete="email" autofocus placeholder="{{ trans('global.login_email') }}" value="{{ old('email', null) }}">
 
@@ -32,9 +32,9 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
+                        {{-- <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                        </div>
+                        </div> --}}
 
                         <input id="password" name="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" required placeholder="{{ trans('global.login_password') }}">
 

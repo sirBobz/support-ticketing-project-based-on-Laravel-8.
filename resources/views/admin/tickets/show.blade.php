@@ -17,12 +17,22 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.ticket.fields.id') }}
+                            Internal Review Deadline
                         </th>
                         <td>
-                            {{ $ticket->id }}
+                            {{ $ticket->review_deadline }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            Version control
+                        </th>
+                        <td>
+                           {{  $ticket->version_control }}
+                        </td>
+                    </tr>
+
+
                     <tr>
                         <th>
                             {{ trans('cruds.ticket.fields.created_at') }}
