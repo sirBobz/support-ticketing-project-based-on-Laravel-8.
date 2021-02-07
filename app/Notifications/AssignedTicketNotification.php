@@ -44,6 +44,7 @@ class AssignedTicketNotification extends Notification implements ShouldQueue
                     ->subject('You have been assigned a new ticket')
                     ->greeting('Hi,')
                     ->line('You have been assigned a new ticket: '.$this->ticket->title)
+                    ->line("Internal review deadline: " . $this->ticket->review_deadline)
                     ->action('View ticket', route('admin.tickets.show', $this->ticket->id))
                     ->line('Thank you')
                     ->line(config('app.name') . ' Team')

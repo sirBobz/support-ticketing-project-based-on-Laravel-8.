@@ -50,6 +50,8 @@ class TicketUpdateNotification extends Notification implements ShouldQueue
             ->line('You Ticket status has been updated to ' . $this->ticket->status->name)
             ->line("Your name: " . $this->ticket->author_name)
             ->line("Ticket title: " . $this->ticket->title)
+            ->line("Internal review deadline: " . $this->ticket->review_deadline)
+            ->line("Editorial requests description: " . Str::limit($this->ticket->editorial_requests, 500))
             ->line("Brief description: " . Str::limit($this->ticket->content, 200))
             ->action('View full ticket', route('admin.tickets.show', $this->ticket->id))
             ->line('Thank you')
