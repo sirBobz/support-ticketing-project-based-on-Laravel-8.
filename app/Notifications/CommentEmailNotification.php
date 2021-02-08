@@ -12,6 +12,8 @@ class CommentEmailNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $comment;
+
     /**
      * Create a new notification instance.
      *
@@ -47,7 +49,7 @@ class CommentEmailNotification extends Notification implements ShouldQueue
                     ->line('New comment on ticket '.$this->comment->ticket->title.':')
                     ->line('')
                     ->line(Str::limit($this->comment->comment_text, 500))
-                    ->action('View full ticket', route(optional($notifiable)->id ? 'admin.tickets.show' : 'tickets.show', $this->comment->ticket->id))
+                    ->action('View full ticket', route(optional($notifiable)->id ? 'admin.tickets.show' : 'admin.tickets.show', $this->comment->ticket->id))
                     ->line('Thank you')
                     ->line(config('app.name') . ' Team')
                     ->salutation(' ');
