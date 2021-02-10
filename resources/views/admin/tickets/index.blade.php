@@ -22,6 +22,9 @@
 
                     </th>
                     <th>
+                        Queue number
+                    </th>
+                    <th>
                         Internal Review Deadline
                     </th>
                     <th>
@@ -137,6 +140,7 @@ $('.card-body').on('change', 'select', function() {
     },
     columns: [
       { data: 'placeholder', name: 'placeholder' },
+      { data: 'queue_number', name: 'queue_number' },
 { data: 'review_deadline', name: 'review_deadline' },
 {
     data: 'title',
@@ -171,8 +175,8 @@ $('.card-body').on('change', 'select', function() {
 // { data: 'assigned_to_user_name', name: 'assigned_to_user.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
-    order: [[ 1, 'desc' ]],
-    pageLength: 100,
+    order: [[ 1, 'asc' ]],
+    pageLength: 10,
   };
 $(".datatable-Ticket").one("preInit.dt", function () {
  $(".dataTables_filter").after(filters);

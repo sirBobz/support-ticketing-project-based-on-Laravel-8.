@@ -26,7 +26,7 @@
                      Version control
                   </th>
                   <td>
-                     @foreach( json_decode($ticket->version_control) as $key => $value)
+                     @foreach( json_decode($ticket->version_control) as $value)
                             {{ $value }} <br>
                      @endforeach
                   </td>

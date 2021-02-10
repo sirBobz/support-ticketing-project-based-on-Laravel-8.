@@ -105,6 +105,7 @@ class TicketsController extends Controller
                 return route('admin.tickets.show', $row->id);
             });
 
+
             $table->rawColumns(['actions', 'placeholder', 'status', 'priority', 'category', 'assigned_to_user']);
 
             return $table->make(true);
@@ -179,6 +180,8 @@ class TicketsController extends Controller
 
             $user = User::where('email', '=', $ticket->author_email)->first();
 
+            $this->updateTheQueueNumbers($ticket);
+
             #send ticket change email
             $user->notify(new TicketUpdateNotification($user, $ticket));
         }
@@ -201,6 +204,17 @@ class TicketsController extends Controller
         }
 
         return redirect()->route('admin.tickets.index')->withStatus('Updated successfully');
+    }
+
+    public function updateTheQueueNumbers($ticket){
+
+        #update current
+        $ticket->queue_number = 000;
+        $ticket->save();
+
+        #update all other records from there.
+        Ticket::where('id', '>', $ticket->id)->decrement('queue_number', 1);
+
     }
 
     public function show(Ticket $ticket)
