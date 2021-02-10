@@ -1,43 +1,6 @@
 @extends('layouts.app')
 @section('styles')
-<style>
-    input[type=text] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 1px solid gray;
-    border-radius: 4px;
-    }
-    input[type=email] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 1px solid grey;
-    border-radius: 4px;
-    }
-
-    ::-webkit-input-placeholder {
-      color: peachpuff;
-      font-size: 12px;
-    }
-
-    ::-moz-placeholder {
-      color: peachpuff;
-      font-size: 12px;
-    }
-
-    :-ms-input-placeholder {
-      color: peachpuff;
-      font-size: 12px;
-    }
-
-    ::placeholder {
-      color: peachpuff;
-      font-size: 12px;
-    }
-  </style>
+<style>input[type=email]{width:100%;padding:12px 20px;margin:8px 0;box-sizing:border-box;border:1px solid grey;border-radius:4px}::-webkit-input-placeholder{color:#ffdab9;font-size:12px}::-moz-placeholder{color:#ffdab9;font-size:12px}:-ms-input-placeholder{color:#ffdab9;font-size:12px}::placeholder{color:#ffdab9;font-size:12px}</style>
 @endsection
 @section('content')
 
@@ -131,10 +94,13 @@
               </div>
               <div class="form-group col-md-6">
                 <br> <br>
-                <input type="checkbox" value="The document has completed all internal review (Country office and HO level)" name="version_control[]">
-                <label style="font-size:12px;"> The document has completed all internal review (Country office and HO level) </label><br>
-                <input type="checkbox" value="The document has completed all CDC and other external review" name="version_control[]">
-                <label style="font-size:12px;">The document has completed all CDC and other external review</label>
+                <input type="checkbox" value="The document has completed all internal reviews (Country office and HO level)" name="version_control[]">
+                <label style="font-size:12px;"> The document has completed all internal reviews (Country office and HO level) </label><br>
+                <input type="checkbox" value="The document has completed all CDC and other external reviews" name="version_control[]">
+                <label style="font-size:12px;">The document has completed all CDC and other external reviews</label><br>
+                <input type="checkbox" value="None of the above" name="version_control[]">
+                <label style="font-size:12px;"> None of the above</label>
+
             </div>
             </div>
 
