@@ -250,7 +250,7 @@ class TicketsController extends Controller
             'files.*' => 'mimes:doc,pdf,docx,zip'
         ]);
         $user = auth()->user();
-
+        $data = [];
         if ($request->hasfile('files')) {
             foreach ($request->file('files') as $file) {
                 $name = time() . '_' . $file->getClientOriginalName();
