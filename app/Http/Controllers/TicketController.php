@@ -49,12 +49,16 @@ class TicketController extends Controller
             'version_control' => 'required',
         ]);
 
+        $queue_number = $this->getTheQueueNumber() ?? 1;
+
         $request->request->add([
             'category_id'   => 1,
             'status_id'     => 1,
             'priority_id'   => 1,
             'version_control' => $request->version_control,
+            'queue_number' => $queue_number,
         ]);
+
 
         $ticket = Ticket::create($request->all());
 
@@ -67,7 +71,7 @@ class TicketController extends Controller
             $ticket->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('attachments');
         }
 
-        return redirect()->back()->withStatus('Your ticket has been submitted, we will be in touch on mail. You can view ticket status <a href="' . route('admin.tickets.show', $ticket->id) . '">here</a>');
+        return redirect()->back()->withStatus('Your ticket has been submitted. You are in position: ' . $ticket->queue_number . '  in the queue. We will be in touch on mail. You can view ticket status <a href="' . route('admin.tickets.show', $ticket->id) . '">here</a>');
     }
 
     /**
@@ -122,5 +126,15 @@ class TicketController extends Controller
         }
 
         return $user;
+    }
+
+
+    public function getTheQueueNumber()
+    {
+        $data = Ticket::orderBy('id', 'desc')->first();
+        if ($data) {
+            return $data->queue_number + 1;
+        }
+        return 1;
     }
 }

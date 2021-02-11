@@ -171,8 +171,8 @@ $('.card-body').on('change', 'select', function() {
 // { data: 'assigned_to_user_name', name: 'assigned_to_user.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
-    order: [[ 1, 'desc' ]],
-    pageLength: 100,
+    order: [[ 1, 'asc' ]],
+    pageLength: 10,
   };
 $(".datatable-Ticket").one("preInit.dt", function () {
  $(".dataTables_filter").after(filters);

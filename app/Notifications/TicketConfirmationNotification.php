@@ -49,6 +49,7 @@ class TicketConfirmationNotification extends Notification implements ShouldQueue
             ->subject('You created a new Ticket')
             ->greeting('Hi ' . $this->ticket->author_name . ',')
             ->line('You created a new Ticket')
+            ->line('You are in position: ' .  $this->ticket->queue_number . '  in the queue.')
             ->line("Your name: " . $this->ticket->author_name)
             ->line("Ticket title: " . $this->ticket->title)
             ->line("Internal review deadline: " . $this->ticket->review_deadline)
