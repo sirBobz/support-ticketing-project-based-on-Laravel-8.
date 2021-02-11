@@ -206,7 +206,8 @@ class TicketsController extends Controller
         return redirect()->route('admin.tickets.index')->withStatus('Updated successfully');
     }
 
-    public function updateTheQueueNumbers($ticket){
+    public function updateTheQueueNumbers($ticket)
+    {
 
         #update current
         $ticket->queue_number = 000;
@@ -214,7 +215,6 @@ class TicketsController extends Controller
 
         #update all other records from there.
         Ticket::where('id', '>', $ticket->id)->decrement('queue_number', 1);
-
     }
 
     public function show(Ticket $ticket)
@@ -245,14 +245,25 @@ class TicketsController extends Controller
     public function storeComment(Request $request, Ticket $ticket)
     {
         $request->validate([
-            'comment_text' => 'required'
+            'comment_text' => 'required',
+            'files' => 'sometimes',
+            'files.*' => 'mimes:doc,pdf,docx,zip'
         ]);
         $user = auth()->user();
+
+        if ($request->hasfile('files')) {
+            foreach ($request->file('files') as $file) {
+                $name = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path() . '/comments/', $name);
+                $data[] = $name;
+            }
+        }
         $comment = $ticket->comments()->create([
             'author_name'   => $user->name,
             'author_email'  => $user->email,
             'user_id'       => $user->id,
-            'comment_text'  => $request->comment_text
+            'comment_text'  => $request->comment_text,
+            'files'         => json_encode($data),
         ]);
 
         $ticket->sendCommentNotification($comment);

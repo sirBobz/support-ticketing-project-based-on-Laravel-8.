@@ -10,17 +10,38 @@
          {{ session('status') }}
       </div>
       @endif
+      @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
       <div class="mb-2">
          <table class="table table-bordered table-striped">
             <tbody>
                <tr>
                   <th>
-                     Internal Review Deadline
+                     Internal queue number
                   </th>
                   <td>
-                     {{ $ticket->review_deadline }}
+                     @if($ticket->queue_number == 0)
+                       Processed
+                     @else
+                      {{ $ticket->queue_number }}
+                     @endif
                   </td>
                </tr>
+               <tr>
+                <th>
+                   Internal Review Deadline
+                </th>
+                <td>
+                   {{ $ticket->review_deadline }}
+                </td>
+             </tr>
                <tr>
                   <th>
                      Version control
@@ -131,6 +152,12 @@
                         <div class="col">
                            <p class="font-weight-bold"><a href="mailto:{{ $comment->author_email }}">{{ $comment->author_name }}</a> ({{ $comment->created_at }})</p>
                            <p>{{ $comment->comment_text }}</p>
+                           <p>
+                           @foreach((array) json_decode($comment->files) as $value)
+                              <a href="{{ url('/comments/' .  $value) }}">{{ substr($value, strpos($value, "_") + 1) }}</a><br>
+                           @endforeach
+                        </p>
+
                         </div>
                      </div>
                      <hr />
@@ -142,12 +169,17 @@
                      </div>
                      <hr />
                      @endforelse
-                     <form action="{{ route('admin.tickets.storeComment', $ticket->id) }}" method="POST">
+                     <form action="{{ route('admin.tickets.storeComment', $ticket->id) }}" enctype="multipart/form-data" method="POST">
                         @csrf
                         <div class="form-group">
                            <label for="comment_text">Leave a comment</label>
                            <textarea class="form-control" id="comment_text" name="comment_text" rows="3" required></textarea>
                         </div>
+                        <div class="custom-file">
+                            <input type="file" name="files[]" multiple class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <br> <br>
                         <button type="submit" class="btn btn-primary">@lang('global.submit')</button>
                      </form>
                   </td>
@@ -167,4 +199,13 @@
       </nav>
    </div>
 </div>
+@endsection
+@section('scripts')
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function() {
+      var fileName = $(this).val().split("\\").pop();
+      $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 @endsection

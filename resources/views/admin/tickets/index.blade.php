@@ -22,9 +22,6 @@
 
                     </th>
                     <th>
-                        Queue number
-                    </th>
-                    <th>
                         Internal Review Deadline
                     </th>
                     <th>
@@ -140,7 +137,6 @@ $('.card-body').on('change', 'select', function() {
     },
     columns: [
       { data: 'placeholder', name: 'placeholder' },
-      { data: 'queue_number', name: 'queue_number' },
 { data: 'review_deadline', name: 'review_deadline' },
 {
     data: 'title',
