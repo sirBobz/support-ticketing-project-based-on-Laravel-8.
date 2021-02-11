@@ -4,7 +4,15 @@
     <div class="col-md-6">
         <div class="card mx-4">
             <div class="card-body p-4">
-                {{-- <h1>{{ trans('panel.site_title') }}</h1> --}}
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+                @endif
 
                 <p class="text-muted">Set password</p>
 
@@ -23,7 +31,7 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <input id="password" type="password" name="password" class="form-control" required placeholder="{{ trans('global.login_password') }}">
+                        <input id="password"  type="password" minlength="8" name="password" class="form-control" required placeholder="{{ trans('global.login_password') }}">
 
                         @if($errors->has('password'))
                             <div class="invalid-feedback">
@@ -32,7 +40,7 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <input id="password-confirm" type="password" name="password_confirmation" class="form-control" required placeholder="{{ trans('global.login_password_confirmation') }}">
+                        <input id="password-confirm" type="password" minlength="8" name="password_confirmation"  class="form-control" required placeholder="{{ trans('global.login_password_confirmation') }}">
                     </div>
 
                     <div class="row">
